@@ -6,7 +6,7 @@ import sys
 # Opens file and gets all ip addresses needed
 # Stores it in db dictionary
 def read_dnsts():
-    file = open('PROJI-DNSTS2.txt', 'r')
+    file = open('PROJ2-DNSTS2.txt', 'r')
     database = file.readlines()
     db = {}
 
