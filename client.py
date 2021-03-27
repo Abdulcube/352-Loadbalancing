@@ -28,7 +28,7 @@ def client():
         PORT = 26844"""
 
         HOST = sys.argv[1]
-        # Make sure our ports are integers
+        # Make sure our port is an integer
         try:
             PORT = int(sys.argv[2])
         except ValueError:
@@ -52,7 +52,7 @@ def client():
         data = cs.recv(1024)
         code = data.decode("utf-8").split(" ")
 
-        # If found in RS, write to RESOLVED.txt, else continue lookup in TS
+        # Write our results to the output file
         if code[1] == "A":
             resolved.write(query + " " + code[0] + " A\n")
             print(query + " - " + code[0] + " A")
