@@ -49,17 +49,20 @@ def lserver():
             print('socket open error: {} \n'.format(err))
             exit()
 
-        ct1.connect(TS1HOST, T1PORT)
-        ct2.connect(TS2HOST, T2PORT)
+        ct1.connect((TS1HOST, T1PORT))
+        #ct2.connect(TS2HOST, T2PORT)
 
         ct1.sendall(str.encode(data))
 
         ct1.setblocking(0)
-        ct2.setblocking(0)
+        #ct2.setblocking(0)
 
         ready = select.select([ct1], [], [], 5)
         if ready[0]:
             response = ct1.recv(1024)
+            print(response)
+        else:
+            print("timeout")
 
 
 
