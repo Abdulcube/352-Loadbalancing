@@ -54,8 +54,6 @@ def tserver():
         # Checks in our dictionary, if not sends the localhost
         if data in db:
             conn.sendall(str.encode(db[data]))
-        else:
-            conn.sendall(b'NS')
 
 
 if __name__ == "__main__":

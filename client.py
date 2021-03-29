@@ -13,6 +13,7 @@ def client():
     # Read the list of domains
     file = open('PROJ2-HNS.txt', 'r')
     queries = file.readlines()
+    print(queries)
 
     # If RESOLVED.txt previously existed, remove it so we can create and append to a new file
     try:
@@ -43,23 +44,28 @@ def client():
         except socket.error as err:
             print('socket open error: {} \n'.format(err))
             exit()
+    
+        # Connect to the LS Server
+        cs.connect((AHOST, PORT))
 
         # Send the host name for DNS lookup
-        cs.connect((AHOST, PORT))
         cs.sendall(str.encode(query))
 
         # Receive lookup from LS
         data = cs.recv(1024)
         code = data.decode("utf-8").split(" ")
 
+        print("Here is the data " + data)
         # Write our results to the output file
-        if code[1] == "A":
-            resolved.write(query + " " + code[0] + " A\n")
-            print(query + " - " + code[0] + " A")
-        else:
-            # If the code received wasn't "A", then the host wasn't found in any server
+        if data == "NS":
             resolved.write(query + " - " + "Error:HOST NOT FOUND\n")
             print(query + " - " + "Error:HOST NOT FOUND")
+            #resolved.write(query + " " + code[0] + " A\n")
+            #print(query + " - " + code[0] + " A")
+        else:
+            # If the code received wasn't "A", then the host wasn't found in any server
+            resolved.write(query + " " + code[0] + " A\n")
+            print(query + " - " + code[0] + " A")
     print("Done")
 
 
