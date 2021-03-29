@@ -32,10 +32,6 @@ def lserver():
     ss.bind((HOST, PORT))
     ss.listen(1)
 
-    # The client connects to LS here
-    #conn, addr = ss.accept()
-    #print("Connected to ", addr)
-
     while True:
         conn, addr = ss.accept()
         print("Connected to ", addr)
@@ -45,10 +41,10 @@ def lserver():
         data = data.encode('ascii', 'ignore')
         print(data)
 
+        # Create the sockets for TS1 and TS2
         try:
             ct1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             ct2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            # print("[C]: Client socket created")
         except socket.error as err:
             print('socket open error: {} \n'.format(err))
             exit()

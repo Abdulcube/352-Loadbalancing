@@ -55,15 +55,14 @@ def client():
         data = cs.recv(1024)
         code = data.decode("utf-8").split(" ")
 
-        print("Here is the data " + data)
+        # print("Here is the data " + data)
+        
         # Write our results to the output file
         if data == "NS":
             resolved.write(query + " - " + "Error:HOST NOT FOUND\n")
             print(query + " - " + "Error:HOST NOT FOUND")
-            #resolved.write(query + " " + code[0] + " A\n")
-            #print(query + " - " + code[0] + " A")
         else:
-            # If the code received wasn't "A", then the host wasn't found in any server
+            # If the data received wasn't "NS" then we found a match, write to file
             resolved.write(query + " " + code[0] + " A\n")
             print(query + " - " + code[0] + " A")
     print("Done")
